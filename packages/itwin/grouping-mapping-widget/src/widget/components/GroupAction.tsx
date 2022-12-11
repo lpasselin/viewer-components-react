@@ -178,9 +178,18 @@ const GroupAction = ({
               }`
             : "";
         setSimpleQuery(query);
-        setMLSelectedElements(
-          Array.from(iModelConnection.selectionSet.elements),
-        );
+        
+        if (selection.instanceKeys.size > 0) {
+          let elements: string[] = Array.from(selection.instanceKeys.values().next().value)
+          console.log(elements);
+          if (elements) {
+            setMLSelectedElements(elements);
+          }
+        }
+        else {
+          setMLSelectedElements([]);
+        }
+        
         maxElementNumber = await getMaxElementNumber();
       },
     );
